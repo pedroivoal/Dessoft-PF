@@ -1,9 +1,11 @@
 import pygame
+import random
+
 
 pygame.init()
 
 # -- Tela inicial
-tela = pygame.display.set_mode((500, 400))
+tela = pygame.display.set_mode((600, 800))
 pygame.display.set_caption('Mars')
 
 # -- Estrutura inicial do jogo
@@ -14,8 +16,8 @@ game = True
 
 while game:
     # ----- Trata eventos
-    for event in pygame.event.get():
-        # ----- Verifica consequências
+    for event in pygame.event.get():    # ----- Verifica consequências
+
         if event.type == pygame.QUIT:
             game = False
 
