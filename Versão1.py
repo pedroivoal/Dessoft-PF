@@ -6,7 +6,9 @@ pygame.init()
 
 # -- Tela inicial
 tela = pygame.display.set_mode((600, 800))
-pygame.display.set_caption('Mars')
+pygame.display.set_caption('Space run')
+
+image = pygame.image.load('').convert()
 
 # -- Estrutura inicial do jogo
 
@@ -22,7 +24,8 @@ while game:
             game = False
 
     # ----- Gera saídas
-    tela.fill((255, 255, 255))  # Preenche com a cor branca
+    tela.fill((0,0,0))  # Preenche com a cor branca
+    tela.blit(image, (10, 10))
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
