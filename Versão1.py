@@ -15,7 +15,7 @@ pygame.display.set_caption('Space run')
 game = True
 
 # -- Imagem de inicio
-image = pygame.image.load('GitHub\Dessoft-PF\mars1.png').convert()
+image = pygame.image.load('Dessoft-PF/imagem1.png').convert()
 
 # -- Loop principal
 
