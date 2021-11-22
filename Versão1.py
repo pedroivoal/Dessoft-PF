@@ -35,7 +35,7 @@ class nave(pygame.sprite.Sprite):
         
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.centerx = largura / 2
+        self.rect.centerx = largura
         self.rect.bottom = altura - 10
         self.speedx = 0
         
@@ -57,21 +57,22 @@ class aviao(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, largura-largura_aviao)
-        self.rect.y = random.randint(-100, -altura_aviao)
-        self.speedx = random.randint(-3, 3)
-        self.speedy = random.randint(2, 9)
+        self.rect.y = random.randint(-700, -altura_aviao)
+        self.speedx = random.randint(-3, 10)
+        self.speedy = random.randint(2, 15)
 
     def update(self):
-        # Atualizando a posição do meteoro
+        # Atualizando a posição do aviao
         self.rect.x += self.speedx
         self.rect.y += self.speedy
-        # Se o meteoro passar do final da tela, volta para cima e sorteia
+
+        # Se o aviao passar do final da tela, volta para cima e sorteia
         # novas posições e velocidades
         if self.rect.top > altura or self.rect.right < 0 or self.rect.left > largura:
             self.rect.x = random.randint(0, largura-largura,)
             self.rect.y = random.randint(-100, -altura_aviao)
-            self.speedx = random.randint(-3, 3)
-            self.speedy = random.randint(2, 9)       
+            self.speedx = random.randint(-3, 10)
+            self.speedy = random.randint(2, 15)       
         
 # -- ajuste de velocidade
 time = pygame.time.Clock()
@@ -126,6 +127,9 @@ while game:
 
         # Verifica se houve colisão entre nave e um aviao
         hits = pygame.sprite.spritecollide(player, all_avioes, True)
+
+        if hits == True:
+            game = False
 
          # ----- Gera saídas
         tela.fill((0,0,0))  # Preenche com a cor branca
