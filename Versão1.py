@@ -114,19 +114,28 @@ while game:
 
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
-            
+
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_LEFT:
                 player.speedx += 8
             if event.key == pygame.K_RIGHT:
                 player.speedx -= 8
 
-    # ----- Gera saídas
-    tela.fill((0,0,0))  # Preenche com a cor branca
-    tela.blit(background, (10, 10))
+        # Atualizando a posição dos avioes
+        all_sprites.update()
 
-    # ----- Atualiza estado do jogo
-    pygame.display.update()  # Mostra o novo frame para o jogador
+        # Verifica se houve colisão entre nave e um aviao
+        hits = pygame.sprite.spritecollide(player, all_avioes, True)
+
+         # ----- Gera saídas
+        tela.fill((0,0,0))  # Preenche com a cor branca
+        tela.blit(background, (10, 10))
+
+        # Desenhando meteoros
+        all_sprites.draw(tela)
+
+        # ----- Atualiza estado do jogo
+        pygame.display.update()  # Mostra o novo frame para o jogador
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
