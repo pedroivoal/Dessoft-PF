@@ -5,14 +5,17 @@ import random
 pygame.init()
 
 # -- Tela inicial
-tela = pygame.display.set_mode((600, 800))
+largura = 600
+altura = 800
+tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Space run')
-
-image = pygame.image.load('').convert()
 
 # -- Estrutura inicial do jogo
 
 game = True
+
+# -- Imagem de inicio
+image = pygame.image.load('').convert()
 
 # -- Loop principal
 
