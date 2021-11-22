@@ -29,9 +29,9 @@ image_nave = pygame.transform.scale(image_nave,(largura_nave,altura_nave))
 
 # -- estrutura dos dados
 
-class Nave(pygame.sprite.Sprite):
+class nave(pygame.sprite.Sprite):
     def __init__(self,img):
-        pygame.sprite.Sprite._init_(self)
+        pygame.sprite.Sprite.__init__(self)
         
         self.image = img
         self.rect = self.image.get_rect()
@@ -71,16 +71,29 @@ class aviao(pygame.sprite.Sprite):
             self.rect.x = random.randint(0, largura-largura,)
             self.rect.y = random.randint(-100, -altura_aviao)
             self.speedx = random.randint(-3, 3)
-            self.speedy = random.randint(2, 9)
+            self.speedy = random.randint(2, 9)       
+        
+# -- ajuste de velocidade
+time = pygame.time.Clock()
+FPS = 30
 
-        
-        
-        
-        
-# -- Estrutura inicial do jogo
+# Criando um grupo de avioes
+all_sprites = pygame.sprite.Group()
+all_avioes = pygame.sprite.Group()
 
-game = True        
-    
+# Criando o jogador
+player = nave(image_nave)
+all_sprites.add(player)
+
+# Criando os avioes
+for i in range(8):
+    Aviao = aviao(image_aviao)
+    all_sprites.add(Aviao)
+    all_avioes.add(Aviao)
+
+# -- Parâmetro para inicio e final do jogo
+game = True  
+
 # -- Loop principal
 
 while game:
@@ -89,6 +102,24 @@ while game:
 
         if event.type == pygame.QUIT:
             game = False
+
+        # Verifica se apertou alguma tecla.
+        if event.type == pygame.KEYDOWN:
+
+            # Dependendo da tecla, altera a velocidade.
+            if event.key == pygame.K_LEFT:
+                player.speedx -= 8
+            if event.key == pygame.K_RIGHT:
+                player.speedx += 8
+
+        # Verifica se soltou alguma tecla.
+        if event.type == pygame.KEYUP:
+            
+            # Dependendo da tecla, altera a velocidade.
+            if event.key == pygame.K_LEFT:
+                player.speedx += 8
+            if event.key == pygame.K_RIGHT:
+                player.speedx -= 8
 
     # ----- Gera saídas
     tela.fill((0,0,0))  # Preenche com a cor branca
