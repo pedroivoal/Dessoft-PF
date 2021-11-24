@@ -12,10 +12,10 @@ pygame.display.set_caption('Space run')
 
 # -- inicio do jogo
 
-largura_aviao = 200
+largura_aviao = 150
 altura_aviao = 100
-largura_nave = 50
-altura_nave = 250
+largura_nave = 100
+altura_nave = 200
 font = pygame.font.SysFont(None, 48)
 
 background = pygame.image.load('imagem1.png').convert()
