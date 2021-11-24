@@ -21,7 +21,7 @@ font = pygame.font.SysFont(None, 48)
 background = pygame.image.load('imagem1.png').convert()
 background = pygame.transform.scale(background,(largura,altura))
 
-image_aviao = pygame.image.load('aviaoguerra.png').convert_alpha()
+image_aviao = pygame.image.load('caça.png').convert_alpha()
 image_aviao = pygame.transform.scale(image_aviao,(largura_aviao,altura_aviao))
 
 image_nave = pygame.image.load('Shuttle.png').convert_alpha()
