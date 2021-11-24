@@ -67,7 +67,7 @@ class aviao(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, largura-largura_aviao)
         self.rect.y = random.randint(1, 800)
-        self.speedx = 1
+        self.speedx = 5
         self.speedy = 0
 
     def update(self):
@@ -86,7 +86,7 @@ class aviao(pygame.sprite.Sprite):
         
 # -- ajuste de velocidade
 time = pygame.time.Clock()
-FPS = 0
+FPS = 60
 
 # Criando um grupo de avioes
 all_sprites = pygame.sprite.Group()
@@ -108,6 +108,7 @@ game = True
 # -- Loop principal
 
 while game:
+    time.tick(FPS)
     # ----- Trata eventos
     for event in pygame.event.get():    # ----- Verifica consequências
 
@@ -119,26 +120,26 @@ while game:
 
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_LEFT:
-                player.speedx -= 4
+                player.speedx -= 15
             if event.key == pygame.K_RIGHT:
-                player.speedx += 4
+                player.speedx += 15
             if event.key == pygame.K_DOWN:
-                player.speedy += 4
+                player.speedy += 15
             if event.key == pygame.K_UP:
-                player.speedy -= 4
+                player.speedy -= 15
 
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
 
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_LEFT:
-                player.speedx += 4
+                player.speedx += 15
             if event.key == pygame.K_RIGHT:
-                player.speedx -= 4
+                player.speedx -= 15
             if event.key == pygame.K_DOWN:
-                player.speedy -= 4
+                player.speedy -= 15
             if event.key == pygame.K_UP:
-                player.speedy += 4
+                player.speedy += 15
 
     # Atualizando a posição dos avioes
     all_sprites.update()
