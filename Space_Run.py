@@ -11,7 +11,7 @@ window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption('Space Run')
 font = pygame.font.SysFont(None, 48)
 
-plane_width = 100
+plane_width = 50
 plane_heigth = 80
 nave_width = 20
 nave_heigth = 40
@@ -19,7 +19,7 @@ nave_heigth = 40
 elements = {}
 elements['background1'] = pygame.image.load(r'imagem1.png').convert()
 elements['background1'] = pygame.transform.scale(elements['background1'], (window_width, window_height))
-elements['plane'] = pygame.image.load(r'aviao.png').convert_alpha()
+elements['plane'] = pygame.image.load(r'caça.png').convert_alpha()
 elements['plane'] = pygame.transform.scale(elements['plane'], (nave_width, nave_heigth))
 
 class Plane(pygame.sprite.Sprite):
