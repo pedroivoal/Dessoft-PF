@@ -65,8 +65,8 @@ class aviao(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, largura-largura_aviao)
-        self.rect.y = random.randint(1, 800)
+        self.rect.x = random.randint(-1000, 0-largura_aviao)
+        self.rect.y = random.randint(0, altura-altura_aviao)
         self.speedx = 5
         self.speedy = 0
 
@@ -79,10 +79,13 @@ class aviao(pygame.sprite.Sprite):
         # novas posições e velocidades
         # Mantem dentro da tela
         if self.rect.right > largura:
-            self.rect.x = 0
+            self.rect.x = random.randint(-1000, 0-largura_aviao)
+            self.rect.y = random.randint(0, altura-altura_aviao)
+            self.speedx = random.randint(2, 8)
+            self.speedy = 0
+
     
-            ## self.speedx = random.randint(3, 10)
-            ## self.speedy = random.randint(2, 15)       
+                 
         
 # -- ajuste de velocidade
 time = pygame.time.Clock()
@@ -104,9 +107,9 @@ for i in range(5):
 
 # -- Parâmetro para inicio e final do jogo
 game = True  
+lives = 3
 
 # -- Loop principal
-
 while game:
     time.tick(FPS)
     # ----- Trata eventos
@@ -147,7 +150,10 @@ while game:
     # Verifica se houve colisão entre nave e um aviao
     hits = pygame.sprite.spritecollide(player, all_avioes, True)
 
-    if hits == True:
+    if hits:
+       lives -= 1
+
+    if lives == 0:
         game = False
 
         # ----- Gera saídas
