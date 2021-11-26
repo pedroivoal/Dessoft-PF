@@ -18,14 +18,15 @@ largura_nave = 100
 altura_nave = 200
 font = pygame.font.SysFont(None, 48)
 
-background = pygame.image.load('imagem1.png').convert()
-background = pygame.transform.scale(background,(largura,altura))
+assets = {}
+assets['background'] = pygame.image.load('imagem1.png').convert()
+assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
 
-image_aviao = pygame.image.load('caça.png').convert_alpha()
-image_aviao = pygame.transform.scale(image_aviao,(largura_aviao,altura_aviao))
+assets['image_aviao'] = pygame.image.load('caça.png').convert_alpha()
+assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
-image_nave = pygame.image.load('Shuttle.png').convert_alpha()
-image_nave = pygame.transform.scale(image_nave,(largura_nave,altura_nave))
+assets['image_nave'] = pygame.image.load('Shuttle.png').convert_alpha()
+assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 
 # -- estrutura dos dados
 
@@ -35,6 +36,7 @@ class nave(pygame.sprite.Sprite):
         
         self.image = img
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.centerx = largura /2
         self.rect.bottom = altura - 10
         self.speedx = 0
@@ -65,6 +67,7 @@ class aviao(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = random.randint(-1000, 0-largura_aviao)
         self.rect.y = random.randint(0, altura-altura_aviao)
         self.speedx = 5
@@ -96,12 +99,12 @@ all_sprites = pygame.sprite.Group()
 all_avioes = pygame.sprite.Group()
 
 # Criando o jogador
-player = nave(image_nave)
+player = nave(assets['image_nave'])
 all_sprites.add(player)
 
 # Criando os avioes
 for i in range(5):
-    Aviao = aviao(image_aviao)
+    Aviao = aviao(assets['image_aviao'])
     all_sprites.add(Aviao)
     all_avioes.add(Aviao)
 
@@ -148,7 +151,7 @@ while game:
     all_sprites.update()
 
     # Verifica se houve colisão entre nave e um aviao
-    hits = pygame.sprite.spritecollide(player, all_avioes, True)
+    hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
 
     if hits:
        lives -= 1
@@ -158,10 +161,17 @@ while game:
 
         # ----- Gera saídas
     tela.fill((0,0,0))  # Preenche com a cor branca
-    tela.blit(background, (10, 10))
+    tela.blit(assets['background'], (10, 10))
 
     # Desenhando meteoros
     all_sprites.draw(tela)
+
+    # Desenhando as vidas
+    #text_surface = assets['score_font'].render(chr(9829) * lives, True, (255, 0, 0))
+    #text_rect = text_surface.get_rect()
+    #text_rect.bottomleft = (10, altura - 10)
+    #tela.blit(text_surface, text_rect)
+
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
