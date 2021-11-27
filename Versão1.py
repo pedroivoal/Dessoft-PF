@@ -28,6 +28,16 @@ assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_av
 assets['image_nave'] = pygame.image.load('Shuttle.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 
+anim_explosao = []
+
+for i in range(9):
+    # arquivos da animacao
+    animacao = 'regularExplosion0{}.png'.format(i)
+    img = pygame.image.load(animacao).convert()
+    img = pygame.transform.scale(img, (72, 72))
+    anim_explosao.append(img)
+assets["anim_explosao"] = anim_explosao
+
 # -- estrutura dos dados
 
 class nave(pygame.sprite.Sprite):
@@ -88,7 +98,55 @@ class aviao(pygame.sprite.Sprite):
             self.speedy = 0
 
     
-                 
+class Explosao(pygame.sprite.Sprite):
+    # Construtor da classe.
+    def __init__(self, center, assets):
+
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+
+        # Armazena a animação de explosão
+        self.anim_explosao = assets['anim_explosao']
+
+        # Inicia o processo de animação colocando a primeira imagem na tela.
+        self.frame = 0  # Armazena o índice atual na animação
+        self.image = self.anim_explosao[self.frame]  # Pega a primeira imagem
+        self.rect = self.image.get_rect()
+        self.rect.center = center  # Posiciona o centro da imagem
+
+        # Guarda o tick da primeira imagem, ou seja, o momento em que a imagem foi mostrada
+        self.last_update = pygame.time.get_ticks()
+
+        # Controle de ticks de animação: troca de imagem a cada self.frame_ticks milissegundos.
+        # Quando pygame.time.get_ticks() - self.last_update > self.frame_ticks a
+        # próxima imagem da animação será mostrada
+        self.frame_ticks = 50
+
+    def update(self):
+        # Verifica o tick atual.
+        now = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde a ultima mudança de frame.
+        ticks = now - self.last_update
+
+        # Se já está na hora de mudar de imagem...
+        if ticks > self.frame_ticks:
+            # Marca o tick da nova imagem.
+            self.last_update = now
+
+            # Avança um quadro.
+            self.frame += 1
+
+            # Verifica se já chegou no final da animação.
+            if self.frame == len(self.anim_explosao):
+                self.kill()
+
+            else:
+                # Se ainda não chegou ao fim da explosão, troca de imagem.
+                center = self.rect.center
+                self.image = self.anim_explosao[self.frame]
+                self.rect = self.image.get_rect()
+                self.rect.center = center
+                
         
 # -- ajuste de velocidade
 time = pygame.time.Clock()
@@ -153,11 +211,18 @@ while game:
     # Verifica se houve colisão entre nave e um aviao
     hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
 
+    # explosao dos avioes
+    for aviao in hits:
+        explosao = Explosao(aviao.rect.center, assets)
+        all_sprites.add(explosao)
+
+    
     if hits:
        lives -= 1
 
     if lives == 0:
         game = False
+        time.sleep(100)
 
         # ----- Gera saídas
     tela.fill((0,0,0))  # Preenche com a cor branca

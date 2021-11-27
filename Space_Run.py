@@ -61,6 +61,7 @@ while game:
 
         if event.type == pygame.QUIT:
             game = False
+            pygame.time.delay(1000)
     
     plane1.update()
 
