@@ -19,13 +19,13 @@ altura_nave = 200
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
-assets['background'] = pygame.image.load('imagem1.png').convert()
+assets['background'] = pygame.image.load('img\imagem1.png').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
 
-assets['image_aviao'] = pygame.image.load('caça.png').convert_alpha()
+assets['image_aviao'] = pygame.image.load('img\caça.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
-assets['image_nave'] = pygame.image.load('Shuttle.png').convert_alpha()
+assets['image_nave'] = pygame.image.load('img\Shuttle.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 
 # -- estrutura dos dados
