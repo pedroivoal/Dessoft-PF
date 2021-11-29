@@ -13,9 +13,9 @@ pygame.display.set_caption('Space run')
 # -- inicio do jogo
 
 largura_aviao = 150
-altura_aviao = 100
+altura_aviao = 150
 largura_nave = 100
-altura_nave = 200
+altura_nave = 150
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
@@ -25,7 +25,7 @@ assets['background']= pygame.transform.scale(assets['background'],(largura,altur
 assets['image_aviao'] = pygame.image.load(r'img\ufo2.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
-assets['image_nave'] = pygame.image.load(r'img\Shuttle.png').convert_alpha()
+assets['image_nave'] = pygame.image.load(r'img\nave3.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 
 # -- estrutura dos dados
