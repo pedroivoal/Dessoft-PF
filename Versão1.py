@@ -177,7 +177,7 @@ while game:
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
 
-    score = pygame.time.get_ticks()
+    score = int(pygame.time.get_ticks()*111/1000)
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
