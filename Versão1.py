@@ -153,12 +153,10 @@ while game:
     # Verifica se houve colisão entre nave e um aviao
     hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
 
-    if hits:
-       lives -= 1
-
-    if lives == 0:
+    if len(hits) > 0:
         game = False
-
+    
+    
         # ----- Gera saídas
     tela.fill((0,0,0))  # Preenche com a cor branca
     tela.blit(assets['background'], (10, 10))
