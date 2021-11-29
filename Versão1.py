@@ -87,7 +87,6 @@ class aviao(pygame.sprite.Sprite):
             self.speedx = random.randint(2, 8)
             self.speedy = 0
 
-    
                  
         
 # -- ajuste de velocidade
@@ -101,12 +100,15 @@ all_avioes = pygame.sprite.Group()
 # Criando o jogador
 player = nave(assets['image_nave'])
 all_sprites.add(player)
+score = 0
 
 # Criando os avioes
 for i in range(5):
     Aviao = aviao(assets['image_aviao'])
     all_sprites.add(Aviao)
     all_avioes.add(Aviao)
+
+front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
 # -- Parâmetro para inicio e final do jogo
 game = True  
@@ -115,6 +117,7 @@ lives = 3
 # -- Loop principal
 while game:
     time.tick(FPS)
+
     # ----- Trata eventos
     for event in pygame.event.get():    # ----- Verifica consequências
 
@@ -156,7 +159,7 @@ while game:
     if len(hits) > 0:
         game = False
     
-    
+
         # ----- Gera saídas
     tela.fill((0,0,0))  # Preenche com a cor branca
     tela.blit(assets['background'], (10, 10))
@@ -164,15 +167,17 @@ while game:
     # Desenhando meteoros
     all_sprites.draw(tela)
 
-    # Desenhando as vidas
-    #text_surface = assets['score_font'].render(chr(9829) * lives, True, (255, 0, 0))
-    #text_rect = text_surface.get_rect()
-    #text_rect.bottomleft = (10, altura - 10)
-    #tela.blit(text_surface, text_rect)
+    # Desenha score na tela
+    text_surface = front_score.render("{:08d}".format(score), True, (255, 100, 200))
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (largura / 2,  10)
+    tela.blit(text_surface, text_rect)
 
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
+
+    score = pygame.time.get_ticks()
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
