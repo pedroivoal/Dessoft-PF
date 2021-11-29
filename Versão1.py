@@ -173,6 +173,12 @@ while game:
     text_rect.midtop = (largura / 2,  10)
     tela.blit(text_surface, text_rect)
 
+        # Desenhando as vidas
+    text_surface = assets['score_font'].render(chr(9829) * lives, True, (255, 0, 0))
+    text_rect = text_surface.get_rect()
+    text_rect.bottomleft = (10, altura - 10)
+    tela.blit(text_surface, text_rect)
+
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
