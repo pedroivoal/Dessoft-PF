@@ -44,14 +44,18 @@ playing = 2
 state = start
 
 while state == start:
+    for event in pygame.event.get():    # ----- Verifica consequências
+
+        if event.type == pygame.QUIT:
+            state = gameover
 
     tela.fill((0,0,0))  # Preenche com a cor branca
     tela.blit(assets['tela_init'], (10, 10))
 
     for event in pygame.event.get():
-        if event.type == pygame.KEYUP:
-            state = playing
-    pygame.display.update()
+        if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
+            state = playing          
+    pygame.display.update()                                                        
 
 anim_explosao = []
 
@@ -276,8 +280,8 @@ while state == playing:
 
 
     # ----- Atualiza estado do jogo
-    pygame.display.update()  # Mostra o novo frame para o jogador
-
+    pygame.display.update()                           
+    
     score = int(pygame.time.get_ticks()*111/1000)
 
     if state == gameover:
@@ -290,6 +294,7 @@ while state == playing:
                 if event.type == pygame.KEYUP:
                     state = start
             pygame.display.update()
+            pygame.time.delay(500) 
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
