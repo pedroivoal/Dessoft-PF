@@ -317,7 +317,7 @@ while state == playing:
     all_sprites.update()
 
     # Atualiza a posição da imagem de fundo.
-    background_rect.y -= 10
+    background_rect.y -= 1
     # Se o fundo saiu da janela, faz ele voltar para dentro.
     # Verifica se o fundo saiu para a esquerda
     if background_rect.top < 0:
@@ -341,6 +341,8 @@ while state == playing:
     tela.blit(background, background_rect2)
 
     all_sprites.draw(tela)
+
+    tela.fill(BLACK)
 
     # Depois de desenhar tudo, inverte o display.
     pygame.display.flip()
