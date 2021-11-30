@@ -271,7 +271,7 @@ front_score = pygame.font.Font('PressStart2P.ttf', 28)
 # -- Parâmetro para inicio e final do jogo
 game = True  
 lives = 3
-
+i = 0
 # -- Loop principal
 while state == playing:
     time.tick(FPS)
@@ -335,9 +335,16 @@ while state == playing:
         
 
 
-        # ----- Gera saídas
-    tela.fill((0,0,0))  # Preenche com a cor branca
-    tela.blit(assets['background'], (10, 10))
+    #     ----- Gera saídas
+    tela.fill((0,0,0)) 
+    tela.blit(assets['background'], (0, i))
+    tela.blit(assets['background'], (0, altura + i))
+
+    if i == -altura:
+        tela.blit(assets['background'], (0, altura + i))
+        i = 0
+    i -= 1
+
 
     # Desenhando meteoros
     all_sprites.draw(tela)
