@@ -66,15 +66,24 @@ while state == start:
             state = over          
     pygame.display.update()                                                        
 
-anim_explosao = []
+anim_explosao_av = []
+anim_explosao_nav = []
 
 for i in range(9):
     # arquivos da animacao
     animacao = 'regularExplosion0{}.png'.format(i)
     img = pygame.image.load(animacao).convert()
     img = pygame.transform.scale(img, (72, 72))
-    anim_explosao.append(img)
-assets["anim_explosao"] = anim_explosao
+    anim_explosao_av.append(img)
+assets["anim_explosao_av"] = anim_explosao_av
+
+for i in range(9):
+    # arquivos da animacao
+    animacao = 'regularExplosion0{}.png'.format(i)
+    img = pygame.image.load(animacao).convert()
+    img = pygame.transform.scale(img, (100, 100))
+    anim_explosao_nav.append(img)
+assets["anim_explosao_nav"] = anim_explosao_nav
 
 # -- estrutura dos dados
 
@@ -143,7 +152,7 @@ class Explosao(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # Armazena a animação de explosão
-        self.anim_explosao = assets['anim_explosao']
+        self.anim_explosao = assets['anim_explosao_av']
 
         # Inicia o processo de animação colocando a primeira imagem na tela.
         self.frame = 0  # Armazena o índice atual na animação
@@ -183,6 +192,57 @@ class Explosao(pygame.sprite.Sprite):
                 # Se ainda não chegou ao fim da explosão, troca de imagem.
                 center = self.rect.center
                 self.image = self.anim_explosao[self.frame]
+                self.rect = self.image.get_rect()
+                self.rect.center = center
+
+class Explosao2(pygame.sprite.Sprite):
+    # Construtor da classe.
+    def __init__(self, center, assets):
+
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+
+        # Armazena a animação de explosão
+        self.anim_explosao_nav = assets['anim_explosao_nav']
+
+        # Inicia o processo de animação colocando a primeira imagem na tela.
+        self.frame = 0  # Armazena o índice atual na animação
+        self.image = self.anim_explosao_nav[self.frame]  # Pega a primeira imagem
+        self.rect = self.image.get_rect()
+        self.rect.center = center  # Posiciona o centro da imagem
+
+        # Guarda o tick da primeira imagem, ou seja, o momento em que a imagem foi mostrada
+        self.last_update = pygame.time.get_ticks()
+
+        # Controle de ticks de animação: troca de imagem a cada self.frame_ticks milissegundos.
+        # Quando pygame.time.get_ticks() - self.last_update > self.frame_ticks a
+        # próxima imagem da animação será mostrada
+        self.frame_ticks = 50
+
+    def update(self):
+        # Verifica o tick atual.
+        now = pygame.time.get_ticks()
+
+        # Verifica quantos ticks se passaram desde a ultima mudança de frame.
+        ticks = now - self.last_update
+
+        # Se já está na hora de mudar de imagem...
+        if ticks > self.frame_ticks:
+
+            # Marca o tick da nova imagem.
+            self.last_update = now
+
+            # Avança um quadro.
+            self.frame += 1
+
+            # Verifica se já chegou no final da animação.
+            if self.frame == len(self.anim_explosao_nav):
+                self.kill()
+
+            else:
+                # Se ainda não chegou ao fim da explosão, troca de imagem.
+                center = self.rect.center
+                self.image = self.anim_explosao_nav[self.frame]
                 self.rect = self.image.get_rect()
                 self.rect.center = center
                           
@@ -257,7 +317,9 @@ while state == playing:
     # explosao dos avioes
     for aviao in hits:
         explosao = Explosao(aviao.rect.center, assets)
+        explosao2 = Explosao2(player.rect.center, assets)
         all_sprites.add(explosao)
+        all_sprites.add(explosao2)
 
     print(hits)
     if len(hits):
