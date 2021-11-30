@@ -15,7 +15,7 @@ pygame.display.set_caption('Space run')
 largura_aviao = 150
 altura_aviao = 150
 largura_nave = 100
-altura_nave = 150
+altura_nave = 250
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
@@ -24,11 +24,11 @@ assets['background'] = pygame.image.load(r'img\spacebg.jpg').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
 
 # tela inicial
-assets['tela_init'] = pygame.image.load(r'img\imagem1.png').convert()
+assets['tela_init'] = pygame.image.load(r'img\screen_start .png').convert()
 assets['tela_init']= pygame.transform.scale(assets['tela_init'],(largura,altura))
 
 # tela do gameover
-assets['tela_fin'] = pygame.image.load(r'img\gameover.png').convert()
+assets['tela_fin'] = pygame.image.load(r'img\screen_gameover.png').convert()
 assets['tela_fin']= pygame.transform.scale(assets['tela_fin'],(largura,altura))
 
 # imagem do ufo
@@ -36,7 +36,7 @@ assets['image_aviao'] = pygame.image.load(r'img\ufo2.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
 # imagem da nave do jogador
-assets['image_nave'] = pygame.image.load(r'img\nave3.png').convert_alpha()
+assets['image_nave'] = pygame.image.load(r'img\ITS1.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 
 # fim de jogo
@@ -52,17 +52,15 @@ playing = 2
 state = start
 
 while state == start:
-    for event in pygame.event.get():    # ----- Verifica consequências
-
-        if event.type == pygame.QUIT:
-            state = gameover
-
     tela.fill((0,0,0))  # Preenche com a cor branca
     tela.blit(assets['tela_init'], (10, 10))
 
     for event in pygame.event.get():
         if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
-            state = playing          
+            state = playing
+            
+        if event.type == pygame.QUIT:
+            state = gameover          
     pygame.display.update()                                                        
 
 anim_explosao = []
@@ -302,6 +300,9 @@ while state == playing:
             for event in pygame.event.get():
                 if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
                     state = start
+
+                if event.type == pygame.QUIT:
+                     state = start
             pygame.display.update()
 
 # ===== Finalização =====
