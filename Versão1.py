@@ -19,15 +19,23 @@ altura_nave = 150
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
+# background do jogo
 assets['background'] = pygame.image.load(r'img\spacebg.jpg').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
 
+# tela inicial
 assets['tela_init'] = pygame.image.load(r'img\imagem1.png').convert()
 assets['tela_init']= pygame.transform.scale(assets['tela_init'],(largura,altura))
 
+# tela do gameover
+assets['tela_fin'] = pygame.image.load(r'img\gameover.png').convert()
+assets['tela_fin']= pygame.transform.scale(assets['tela_fin'],(largura,altura))
+
+# imagem do ufo
 assets['image_aviao'] = pygame.image.load(r'img\ufo2.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
+# imagem da nave do jogador
 assets['image_nave'] = pygame.image.load(r'img\nave3.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 
@@ -289,10 +297,10 @@ while state == playing:
         while state == gameover:
 
             tela.fill((0,0,0))  # Preenche com a cor branca
-            tela.blit(assets['tela_init'], (10, 10))
+            tela.blit(assets['tela_fin'], (10, 10))
 
             for event in pygame.event.get():
-                if event.type == pygame.KEYUP:
+                if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
                     state = start
             pygame.display.update()
 
