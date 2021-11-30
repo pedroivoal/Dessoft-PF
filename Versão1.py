@@ -13,19 +13,19 @@ pygame.display.set_caption('Space run')
 # -- inicio do jogo
 
 largura_aviao = 150
-altura_aviao = 100
+altura_aviao = 150
 largura_nave = 100
-altura_nave = 200
+altura_nave = 150
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
-assets['background'] = pygame.image.load('imagem1.png').convert()
+assets['background'] = pygame.image.load(r'img\imagem1.png').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
 
-assets['image_aviao'] = pygame.image.load('caça.png').convert_alpha()
+assets['image_aviao'] = pygame.image.load(r'img\ufo2.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
-assets['image_nave'] = pygame.image.load('Shuttle.png').convert_alpha()
+assets['image_nave'] = pygame.image.load(r'img\nave3.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 
 anim_explosao = []
@@ -96,7 +96,6 @@ class aviao(pygame.sprite.Sprite):
             self.rect.y = random.randint(0, altura-altura_aviao)
             self.speedx = random.randint(2, 8)
             self.speedy = 0
-
     
 class Explosao(pygame.sprite.Sprite):
     # Construtor da classe.
@@ -146,7 +145,7 @@ class Explosao(pygame.sprite.Sprite):
                 self.image = self.anim_explosao[self.frame]
                 self.rect = self.image.get_rect()
                 self.rect.center = center
-                
+                          
         
 # -- ajuste de velocidade
 time = pygame.time.Clock()
@@ -159,12 +158,15 @@ all_avioes = pygame.sprite.Group()
 # Criando o jogador
 player = nave(assets['image_nave'])
 all_sprites.add(player)
+score = 0
 
 # Criando os avioes
 for i in range(5):
     Aviao = aviao(assets['image_aviao'])
     all_sprites.add(Aviao)
     all_avioes.add(Aviao)
+
+front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
 # -- Parâmetro para inicio e final do jogo
 game = True  
@@ -173,6 +175,7 @@ lives = 3
 # -- Loop principal
 while game:
     time.tick(FPS)
+
     # ----- Trata eventos
     for event in pygame.event.get():    # ----- Verifica consequências
 
@@ -223,6 +226,9 @@ while game:
     if lives == 0:
         game = False
         time.sleep(100)
+    if len(hits) > 0:
+        game = False
+
 
         # ----- Gera saídas
     tela.fill((0,0,0))  # Preenche com a cor branca
@@ -231,7 +237,13 @@ while game:
     # Desenhando meteoros
     all_sprites.draw(tela)
 
-    # Desenhando as vidas
+    # Desenha score na tela
+    text_surface = front_score.render("{:08d}".format(score), True, (255, 100, 200))
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (largura / 2,  10)
+    tela.blit(text_surface, text_rect)
+
+        # Desenhando as vidas
     #text_surface = assets['score_font'].render(chr(9829) * lives, True, (255, 0, 0))
     #text_rect = text_surface.get_rect()
     #text_rect.bottomleft = (10, altura - 10)
@@ -240,6 +252,8 @@ while game:
 
     # ----- Atualiza estado do jogo
     pygame.display.update()  # Mostra o novo frame para o jogador
+
+    score = int(pygame.time.get_ticks()*111/1000)
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
