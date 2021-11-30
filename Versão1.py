@@ -22,6 +22,8 @@ assets = {}
 # background do jogo
 assets['background'] = pygame.image.load(r'img\spacebg.jpg').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
+background = assets['background']
+background_rect = background.get_rect()
 
 # tela inicial
 assets['tela_init'] = pygame.image.load(r'img\screen_start .png').convert()
@@ -269,7 +271,6 @@ for i in range(5):
 front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
 # -- Parâmetro para inicio e final do jogo
-background_rect = assets['background'].get_rect()
 game = True  
 lives = 3
 
@@ -324,6 +325,25 @@ while state == playing:
         # Verifica se o fundo saiu para a direita
     if background_rect.left >= largura:
         background_rect.x -= background_rect.width
+
+    BLACK = (0, 0, 0)
+    tela.fill(BLACK)
+
+    tela.blit(background, background_rect)
+    # Desenhamos a imagem novamente, mas deslocada em x.
+    background_rect2 = background_rect.copy()
+    if background_rect.left > 0:
+        # Precisamos desenhar o fundo à esquerda
+        background_rect2.x -= background_rect2.width
+    else:
+        # Precisamos desenhar o fundo à direita
+        background_rect2.x += background_rect2.width
+    tela.blit(background, background_rect2)
+
+    all_sprites.draw(tela)
+
+    # Depois de desenhar tudo, inverte o display.
+    pygame.display.flip()
 
     # Verifica se houve colisão entre nave e um aviao
     hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
