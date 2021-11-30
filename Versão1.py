@@ -343,7 +343,7 @@ while state == playing:
     if i == altura:
         tela.blit(assets['background'], (0, altura - i))
         i = 0
-    i += 1
+    i += 5
 
 
     # Desenhando meteoros
