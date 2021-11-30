@@ -124,11 +124,13 @@ class Explosao(pygame.sprite.Sprite):
     def update(self):
         # Verifica o tick atual.
         now = pygame.time.get_ticks()
+
         # Verifica quantos ticks se passaram desde a ultima mudança de frame.
         ticks = now - self.last_update
 
         # Se já está na hora de mudar de imagem...
         if ticks > self.frame_ticks:
+
             # Marca o tick da nova imagem.
             self.last_update = now
 
@@ -219,15 +221,13 @@ while game:
         explosao = Explosao(aviao.rect.center, assets)
         all_sprites.add(explosao)
 
-    
-    if hits:
+    print(hits)
+    if len(hits):
        lives -= 1
-
+    
     if lives == 0:
         game = False
-        time.sleep(100)
-    if len(hits) > 0:
-        game = False
+        
 
 
         # ----- Gera saídas
