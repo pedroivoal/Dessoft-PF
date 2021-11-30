@@ -256,6 +256,7 @@ while state == playing:
     
     if lives == 0:
         state = gameover
+        pygame.time.delay(500) 
         
 
 
@@ -294,7 +295,6 @@ while state == playing:
                 if event.type == pygame.KEYUP:
                     state = start
             pygame.display.update()
-            pygame.time.delay(500) 
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
