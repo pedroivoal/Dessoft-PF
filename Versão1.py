@@ -58,7 +58,7 @@ while state == start:
     for event in pygame.event.get():
         if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
             state = playing
-            
+
         if event.type == pygame.QUIT:
             state = gameover          
     pygame.display.update()                                                        
@@ -279,11 +279,11 @@ while state == playing:
     text_rect.midtop = (largura / 2,  10)
     tela.blit(text_surface, text_rect)
 
-        # Desenhando as vidas
-    #text_surface = assets['score_font'].render(chr(9829) * lives, True, (255, 0, 0))
-    #text_rect = text_surface.get_rect()
-    #text_rect.bottomleft = (10, altura - 10)
-    #tela.blit(text_surface, text_rect)
+    # Desenhando as vidas
+    text_surface = front_score.render(chr(9829) * lives, True, (255,0, 0))
+    text_rect = text_surface.get_rect()
+    text_rect.topleft = (50, 10)
+    tela.blit(text_surface, text_rect)
 
 
     # ----- Atualiza estado do jogo
