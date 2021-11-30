@@ -14,8 +14,8 @@ pygame.display.set_caption('Space run')
 
 largura_aviao = 150
 altura_aviao = 150
-largura_nave = 100
-altura_nave = 250
+largura_nave = 40
+altura_nave = 160
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
@@ -51,6 +51,9 @@ playing = 2
 # estado atual
 state = start
 
+# sair do jogo na hora
+over = 3
+
 while state == start:
     tela.fill((0,0,0))  # Preenche com a cor branca
     tela.blit(assets['tela_init'], (10, 10))
@@ -60,7 +63,7 @@ while state == start:
             state = playing
 
         if event.type == pygame.QUIT:
-            state = gameover          
+            state = over          
     pygame.display.update()                                                        
 
 anim_explosao = []
@@ -217,7 +220,7 @@ while state == playing:
     for event in pygame.event.get():    # ----- Verifica consequências
 
         if event.type == pygame.QUIT:
-            state = gameover
+            state = over
 
         # Verifica se apertou alguma tecla.
         if event.type == pygame.KEYDOWN:
@@ -302,7 +305,7 @@ while state == playing:
                     state = start
 
                 if event.type == pygame.QUIT:
-                     state = start
+                     state = over
             pygame.display.update()
 
 # ===== Finalização =====
