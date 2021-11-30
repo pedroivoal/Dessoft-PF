@@ -269,6 +269,7 @@ for i in range(5):
 front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
 # -- Parâmetro para inicio e final do jogo
+background_rect = assets['background'].get_rect()
 game = True  
 lives = 3
 
@@ -313,6 +314,16 @@ while state == playing:
 
     # Atualizando a posição dos avioes
     all_sprites.update()
+
+    # Atualiza a posição da imagem de fundo.
+    background_rect.x -= player.speedx
+    # Se o fundo saiu da janela, faz ele voltar para dentro.
+    # Verifica se o fundo saiu para a esquerda
+    if background_rect.right < 0:
+        background_rect.x += background_rect.width
+        # Verifica se o fundo saiu para a direita
+    if background_rect.left >= largura:
+        background_rect.x -= background_rect.width
 
     # Verifica se houve colisão entre nave e um aviao
     hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
