@@ -141,7 +141,7 @@ class aviao(pygame.sprite.Sprite):
         if self.rect.right > largura:
             self.rect.x = random.randint(-1000, 0-largura_aviao)
             self.rect.y = random.randint(0, altura-altura_aviao)
-            self.speedx = random.randint(2, 8)
+            self.speedx = random.randint(1, 4)
             self.speedy = 0
     
 class Explosao(pygame.sprite.Sprite):
@@ -275,6 +275,9 @@ lives = 3
 # -- Loop principal
 while state == playing:
     time.tick(FPS)
+    
+    if score%500 == 0:
+        lives += 1
 
     # ----- Trata eventos
     for event in pygame.event.get():    # ----- Verifica consequências
