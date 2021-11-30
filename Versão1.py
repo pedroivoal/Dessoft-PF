@@ -200,14 +200,14 @@ game = True
 lives = 3
 
 # -- Loop principal
-while game:
+while state == playing:
     time.tick(FPS)
 
     # ----- Trata eventos
     for event in pygame.event.get():    # ----- Verifica consequências
 
         if event.type == pygame.QUIT:
-            game = False
+            state = gameover
 
         # Verifica se apertou alguma tecla.
         if event.type == pygame.KEYDOWN:
@@ -251,7 +251,7 @@ while game:
        lives -= 1
     
     if lives == 0:
-        game = False
+        state = gameover
         
 
 
@@ -279,6 +279,17 @@ while game:
     pygame.display.update()  # Mostra o novo frame para o jogador
 
     score = int(pygame.time.get_ticks()*111/1000)
+
+    if state == gameover:
+        while state == gameover:
+
+            tela.fill((0,0,0))  # Preenche com a cor branca
+            tela.blit(assets['tela_init'], (10, 10))
+
+            for event in pygame.event.get():
+                if event.type == pygame.KEYUP:
+                    state = start
+            pygame.display.update()
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
