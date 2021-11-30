@@ -19,14 +19,39 @@ altura_nave = 150
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
-assets['background'] = pygame.image.load(r'img\imagem1.png').convert()
+assets['background'] = pygame.image.load(r'img\spacebg.jpg').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
+
+assets['tela_init'] = pygame.image.load(r'img\imagem1.png').convert()
+assets['tela_init']= pygame.transform.scale(assets['tela_init'],(largura,altura))
 
 assets['image_aviao'] = pygame.image.load(r'img\ufo2.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
 assets['image_nave'] = pygame.image.load(r'img\nave3.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
+
+# fim de jogo
+gameover = 0
+
+# tela inicial
+start = 1
+
+# durante o jogo
+playing = 2
+
+# estado atual
+state = start
+
+while state == start:
+
+    tela.fill((0,0,0))  # Preenche com a cor branca
+    tela.blit(assets['tela_init'], (10, 10))
+
+    for event in pygame.event.get():
+        if event.type == pygame.KEYUP:
+            state = playing
+    pygame.display.update()
 
 anim_explosao = []
 
