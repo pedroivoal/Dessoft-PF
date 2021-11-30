@@ -278,7 +278,7 @@ lives = 3
 while state == playing:
     time.tick(FPS)
     
-    if score%500 == 0:
+    if score%5000 == 0 and score != 0:
         lives += 1
 
     # ----- Trata eventos
@@ -317,14 +317,14 @@ while state == playing:
     all_sprites.update()
 
     # Atualiza a posição da imagem de fundo.
-    background_rect.x -= player.speedx
+    background_rect.y -= 10
     # Se o fundo saiu da janela, faz ele voltar para dentro.
     # Verifica se o fundo saiu para a esquerda
-    if background_rect.right < 0:
-        background_rect.x += background_rect.width
+    if background_rect.top < 0:
+        background_rect.y += background_rect.height
         # Verifica se o fundo saiu para a direita
-    if background_rect.left >= largura:
-        background_rect.x -= background_rect.width
+    if background_rect.bottom >= altura:
+        background_rect.y -= background_rect.height
 
     BLACK = (0, 0, 0)
     tela.fill(BLACK)
@@ -332,12 +332,12 @@ while state == playing:
     tela.blit(background, background_rect)
     # Desenhamos a imagem novamente, mas deslocada em x.
     background_rect2 = background_rect.copy()
-    if background_rect.left > 0:
+    if background_rect.top > 0:
         # Precisamos desenhar o fundo à esquerda
-        background_rect2.x -= background_rect2.width
+        background_rect2.x -= background_rect2.height
     else:
         # Precisamos desenhar o fundo à direita
-        background_rect2.x += background_rect2.width
+        background_rect2.x += background_rect2.height
     tela.blit(background, background_rect2)
 
     all_sprites.draw(tela)
