@@ -338,12 +338,12 @@ while state == playing:
     #     ----- Gera saídas
     tela.fill((0,0,0)) 
     tela.blit(assets['background'], (0, i))
-    tela.blit(assets['background'], (0, altura + i))
+    tela.blit(assets['background'], (0, -altura + i))
 
-    if i == -altura:
-        tela.blit(assets['background'], (0, altura + i))
+    if i == altura:
+        tela.blit(assets['background'], (0, altura - i))
         i = 0
-    i -= 1
+    i += 1
 
 
     # Desenhando meteoros
