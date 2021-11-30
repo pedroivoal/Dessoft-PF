@@ -22,8 +22,6 @@ assets = {}
 # background do jogo
 assets['background'] = pygame.image.load(r'img\spacebg.jpg').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
-background = assets['background']
-background_rect = background.get_rect()
 
 # tela inicial
 assets['tela_init'] = pygame.image.load(r'img\screen_start .png').convert()
@@ -315,8 +313,7 @@ while state == playing:
 
     # Atualizando a posição dos avioes
     all_sprites.update()
-    
-    all_sprites.draw(tela)
+
 
     # Verifica se houve colisão entre nave e um aviao
     hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
