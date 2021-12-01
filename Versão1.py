@@ -1,3 +1,4 @@
+from os import close
 import pygame
 import random
 
@@ -57,6 +58,8 @@ state = start
 
 # sair do jogo na hora
 over = 3
+
+end = 4
 
 # Carrega os sons do jogo
 if state == start:
@@ -286,131 +289,153 @@ for i in range(7):
 
 front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
-# -- Parâmetro para inicio e final do jogo
-game = True
-lives = 3
-i = 0
-# -- Loop principal
-while state == playing:
-    time.tick(FPS)
-    
-    if score%2500 == 0 and score != 0:
-        lives += 1
-
-    # ----- Trata eventos
-    for event in pygame.event.get():    # ----- Verifica consequências
-
-        if event.type == pygame.QUIT:
-            state = over
-
-        # Verifica se apertou alguma tecla.
-        if event.type == pygame.KEYDOWN:
-
-            # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_LEFT:
-                player.speedx -= 15
-            if event.key == pygame.K_RIGHT:
-                player.speedx += 15
-            if event.key == pygame.K_DOWN:
-                player.speedy += 15
-            if event.key == pygame.K_UP:
-                player.speedy -= 15
-
-        # Verifica se soltou alguma tecla.
-        if event.type == pygame.KEYUP:
-
-            # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_LEFT:
-                player.speedx += 15
-            if event.key == pygame.K_RIGHT:
-                player.speedx -= 15
-            if event.key == pygame.K_DOWN:
-                player.speedy -= 15
-            if event.key == pygame.K_UP:
-                player.speedy += 15
-
-    # Atualizando a posição dos avioes
-    all_sprites.update()
+while state != end:
 
 
-    # Verifica se houve colisão entre nave e um aviao
-    hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
+    # Criando um grupo de avioes
+    all_sprites = pygame.sprite.Group()
+    all_avioes = pygame.sprite.Group()
 
-    # if len(hits) > 0 and player != nave(assets['image_nave2']):
-    #     player.kill()
-    #     player = nave(assets['image_nave2'])
-    #     all_sprites.add(player)
+    # Criando o jogador
+    player = nave(assets['image_nave'])
+    all_sprites.add(player)
+    score = 0
 
-    # explosao dos avioes
-    for aviao in hits:
-        explosao = Explosao(aviao.rect.center, assets)
-        explosao2 = Explosao2(player.rect.center, assets)
-        all_sprites.add(explosao)
-        all_sprites.add(explosao2)
-        
-    if len(all_avioes) < 8:
+    # Criando os avioes
+    for i in range(7):
         aviao = Aviao(assets['image_aviao'])
         all_sprites.add(aviao)
         all_avioes.add(aviao)
 
-    print(hits)
-    if len(hits):
-       lives -= 1
-
-    if lives == 0:
-        state = gameover
-        pygame.time.delay(500) 
+    # -- Parâmetro para inicio e final do jogo
+    game = True
+    lives = 3
+    i = 0
+    # -- Loop principal
+    while state == playing:
+        time.tick(FPS)
         
+        if score%2500 == 0 and score != 0:
+            lives += 1
+
+        # ----- Trata eventos
+        for event in pygame.event.get():    # ----- Verifica consequências
+
+            if event.type == pygame.QUIT:
+                state = over
+
+            # Verifica se apertou alguma tecla.
+            if event.type == pygame.KEYDOWN:
+
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_LEFT:
+                    player.speedx -= 15
+                if event.key == pygame.K_RIGHT:
+                    player.speedx += 15
+                if event.key == pygame.K_DOWN:
+                    player.speedy += 15
+                if event.key == pygame.K_UP:
+                    player.speedy -= 15
+
+            # Verifica se soltou alguma tecla.
+            if event.type == pygame.KEYUP:
+
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_LEFT:
+                    player.speedx += 15
+                if event.key == pygame.K_RIGHT:
+                    player.speedx -= 15
+                if event.key == pygame.K_DOWN:
+                    player.speedy -= 15
+                if event.key == pygame.K_UP:
+                    player.speedy += 15
+
+        # Atualizando a posição dos avioes
+        all_sprites.update()
 
 
-    #     ----- Gera saídas
-    tela.fill((0,0,0)) 
-    tela.blit(assets['background'], (0, i))
-    tela.blit(assets['background'], (0, -altura + i))
+        # Verifica se houve colisão entre nave e um aviao
+        hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
 
-    if i == altura:
-        tela.blit(assets['background'], (0, altura - i))
-        i = 0
-    i += 5
+        # if len(hits) > 0 and player != nave(assets['image_nave2']):
+        #     player.kill()
+        #     player = nave(assets['image_nave2'])
+        #     all_sprites.add(player)
 
-    # Desenhando na tela
-    all_sprites.draw(tela)
+        # explosao dos avioes
+        for aviao in hits:
+            explosao = Explosao(aviao.rect.center, assets)
+            explosao2 = Explosao2(player.rect.center, assets)
+            all_sprites.add(explosao)
+            all_sprites.add(explosao2)
+            
+        if len(all_avioes) < 8:
+            aviao = Aviao(assets['image_aviao'])
+            all_sprites.add(aviao)
+            all_avioes.add(aviao)
 
-    # Desenha score na tela
-    text_surface = front_score.render("{:08d}".format(score), True, (255, 100, 200))
-    text_rect = text_surface.get_rect()
-    text_rect.midtop = (largura / 2,  10)
-    tela.blit(text_surface, text_rect)
+        if len(hits):
+            lives -= 1
 
-    # Desenhando as vidas
-    text_surface = front_score.render(chr(9829) * lives, True, (255,0, 0))
-    text_rect = text_surface.get_rect()
-    text_rect.topleft = (50, 10)
-    tela.blit(text_surface, text_rect)
+        if lives == 0:
+            state = gameover
+            pygame.time.delay(500) 
+            
 
 
-    # ----- Atualiza estado do jogo
-    pygame.display.update()                           
-    
-    score = int(pygame.time.get_ticks()/100)
+        #     ----- Gera saídas
+        tela.fill((0,0,0)) 
+        tela.blit(assets['background'], (0, i))
+        tela.blit(assets['background'], (0, -altura + i))
 
-    if state == gameover:
+        if i == altura:
+            tela.blit(assets['background'], (0, altura - i))
+            i = 0
+        i += 5
+
+        # Desenhando na tela
+        all_sprites.draw(tela)
+
+        # Desenha score na tela
+        text_surface = front_score.render("{:08d}".format(score), True, (255, 100, 200))
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (largura / 2,  10)
+        tela.blit(text_surface, text_rect)
+
+        # Desenhando as vidas
+        text_surface = front_score.render(chr(9829) * lives, True, (255,0, 0))
+        text_rect = text_surface.get_rect()
+        text_rect.topleft = (50, 10)
+        tela.blit(text_surface, text_rect)
+
+
+        # ----- Atualiza estado do jogo
+        pygame.display.update()                           
+        
+        score = int(pygame.time.get_ticks()/100)
+
+        # if state == gameover:
+            
+    while state == gameover:
+        time.tick(FPS)
         pygame.mixer.music.load(r'som\endmusic.mp3')
         pygame.mixer.music.set_volume(0.2)
 
         pygame.mixer.music.play(loops=-1)
-        while state == gameover:
+        tela.fill((0,0,0))  
+        tela.blit(assets['tela_fin'], (10, 10))
 
-            tela.fill((0,0,0))  
-            tela.blit(assets['tela_fin'], (10, 10))
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                state = end
+                
 
-            for event in pygame.event.get():
-                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-                    state = over
+            if event.type == pygame.QUIT:
+                state = end
 
-                if event.type == pygame.QUIT:
-                     state = over
-            pygame.display.update()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                state = playing
+        pygame.display.update()
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
