@@ -51,6 +51,7 @@ def load_assets():
     # carrega os sons do jogo 
     pygame.mixer.music.load(r'som\music.mp3')
     pygame.mixer.music.load(r'som\musicgame.mp3')
+    pygame.mixer.music.load(r'som\endmusic.mp3')
     pygame.mixer.music.set_volume(0.2)
     assets['explosao'] = pygame.mixer.Sound(r'som\explosao.mp3')
     
