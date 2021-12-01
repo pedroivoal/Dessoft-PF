@@ -120,7 +120,7 @@ class nave(pygame.sprite.Sprite):
         if self.rect.bottom > altura:
             self.rect.bottom = altura
 
-class aviao(pygame.sprite.Sprite):
+class Aviao(pygame.sprite.Sprite):
     def __init__(self, img):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -147,17 +147,6 @@ class aviao(pygame.sprite.Sprite):
             self.speedx = random.randint(2+int(pygame.time.get_ticks()/100)//200, 4+int(pygame.time.get_ticks()/100)//200)
             self.speedy = 0
 
-    def __call__(self):
-        # Construtor da classe mãe (Sprite).
-        pygame.sprite.Sprite.__call__(self)
-
-        self.image = img
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect()
-        self.rect.x = random.randint(-1000, 0-largura_aviao)
-        self.rect.y = random.randint(0, altura-altura_aviao)
-        self.speedx = random.randint(2+int(pygame.time.get_ticks()/100)//200, 4+int(pygame.time.get_ticks()/100)//200)
-        self.speedy = 0
     
 class Explosao(pygame.sprite.Sprite):
     # Construtor da classe.
@@ -277,9 +266,9 @@ score = 0
 
 # Criando os avioes
 for i in range(7):
-    Aviao = aviao(assets['image_aviao'])
-    all_sprites.add(Aviao)
-    all_avioes.add(Aviao)
+    aviao = Aviao(assets['image_aviao'])
+    all_sprites.add(aviao)
+    all_avioes.add(aviao)
 
 front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
@@ -339,9 +328,11 @@ while state == playing:
         explosao2 = Explosao2(player.rect.center, assets)
         all_sprites.add(explosao)
         all_sprites.add(explosao2)
-        Aviao = aviao()
-        all_sprites.add(Aviao)
-        all_avioes.add(Aviao)
+        
+    if len(all_avioes) < 8:
+        aviao = Aviao(assets['image_aviao'])
+        all_sprites.add(aviao)
+        all_avioes.add(aviao)
 
     print(hits)
     if len(hits):
