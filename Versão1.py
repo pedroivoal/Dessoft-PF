@@ -81,7 +81,7 @@ for i in range(9):
     # arquivos da animacao
     animacao = 'regularExplosion0{}.png'.format(i)
     img = pygame.image.load(animacao).convert()
-    img = pygame.transform.scale(img, (100, 100))
+    img = pygame.transform.scale(img, (150, 150))
     anim_explosao_nav.append(img)
 assets["anim_explosao_nav"] = anim_explosao_nav
 
