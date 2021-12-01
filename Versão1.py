@@ -43,12 +43,6 @@ assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave
 assets['image_nave2'] = pygame.image.load(r'img\ITS2.png').convert_alpha()
 assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave))
 
-# Carrega os sons do jogo
-pygame.mixer.music.load(r'som\music.mp3')
-pygame.mixer.music.set_volume(0.4)
-
-pygame.mixer.music.play(loops=-1)
-
 # fim de jogo
 gameover = 0
 
@@ -64,6 +58,13 @@ state = start
 # sair do jogo na hora
 over = 3
 
+# Carrega os sons do jogo
+if state == start:
+    pygame.mixer.music.load(r'som\music.mp3')
+    pygame.mixer.music.set_volume(0.2)
+
+    pygame.mixer.music.play(loops=-1)
+
 while state == start:
     tela.fill((0,0,0))  # Preenche com a cor branca
     tela.blit(assets['tela_init'], (10, 10))
@@ -74,7 +75,13 @@ while state == start:
 
         if event.type == pygame.QUIT:
             state = over          
-    pygame.display.update()                                                        
+    pygame.display.update()
+
+if state == playing:
+    pygame.mixer.music.load(r'som\musicgame.mp3')
+    pygame.mixer.music.set_volume(0.1)
+
+    pygame.mixer.music.play(loops=-1)                                                        
 
 anim_explosao_av = []
 anim_explosao_nav = []
@@ -388,6 +395,10 @@ while state == playing:
     score = int(pygame.time.get_ticks()/100)
 
     if state == gameover:
+        pygame.mixer.music.load(r'som\endmusic.mp3')
+        pygame.mixer.music.set_volume(0.2)
+
+        pygame.mixer.music.play(loops=-1)
         while state == gameover:
 
             tela.fill((0,0,0))  
@@ -395,7 +406,7 @@ while state == playing:
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
-                    state = playing
+                    state = start
 
                 if event.type == pygame.QUIT:
                      state = over
