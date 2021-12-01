@@ -70,6 +70,10 @@ end = 4
 # vitória
 vitoria = 5
 
+# -- ajuste de velocidade
+time = pygame.time.Clock()
+FPS = 60
+
 # Carrega os sons do jogo
 if state == start:
     pygame.mixer.music.load(r'som\music.mp3')
@@ -78,6 +82,8 @@ if state == start:
     pygame.mixer.music.play(loops=-1)
 
 while state == start:
+    time.tick(FPS)
+
     tela.fill((0,0,0))  # Preenche com a cor branca
     tela.blit(assets['tela_init'], (10, 10))
 
@@ -282,10 +288,6 @@ class Explosao2(pygame.sprite.Sprite):
                 self.rect = self.image.get_rect()
                 self.rect.center = center
                           
-        
-# -- ajuste de velocidade
-time = pygame.time.Clock()
-FPS = 60
 
 # Criando um grupo de avioes
 all_sprites = pygame.sprite.Group()
