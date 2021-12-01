@@ -288,6 +288,13 @@ for i in range(7):
 front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
 while state != end:
+    
+    # Carrega os sons do jogo
+    if state == playing:
+        pygame.mixer.music.load(r'som\musicgame.mp3')
+        pygame.mixer.music.set_volume(0.1)
+
+        pygame.mixer.music.play(loops=-1)    
 
 
     # Criando um grupo de avioes
@@ -412,28 +419,28 @@ while state != end:
         
         score = int(pygame.time.get_ticks()/100)
 
-        # if state == gameover:
-            
-    while state == gameover:
-        time.tick(FPS)
+    if state == gameover:
         pygame.mixer.music.load(r'som\endmusic.mp3')
         pygame.mixer.music.set_volume(0.2)
 
         pygame.mixer.music.play(loops=-1)
-        tela.fill((0,0,0))  
-        tela.blit(assets['tela_fin'], (10, 10))
+         
+        while state == gameover:
+            time.tick(FPS)
+            
+            tela.fill((0,0,0))  
+            tela.blit(assets['tela_fin'], (10, 10))
 
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                state = end
-                
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    state = end
+                    
+                if event.type == pygame.QUIT:
+                    state = end
 
-            if event.type == pygame.QUIT:
-                state = end
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                state = playing
-        pygame.display.update()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    state = playing
+            pygame.display.update()
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
