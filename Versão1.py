@@ -24,7 +24,7 @@ assets['background'] = pygame.image.load(r'img\spacebg.jpg').convert()
 assets['background']= pygame.transform.scale(assets['background'],(largura,altura))
 
 # tela inicial
-assets['tela_init'] = pygame.image.load(r'img\screen_start1 .png').convert()
+assets['tela_init'] = pygame.image.load(r'img\screen_start1.png').convert()
 assets['tela_init']= pygame.transform.scale(assets['tela_init'],(largura,altura))
 
 # tela do gameover
