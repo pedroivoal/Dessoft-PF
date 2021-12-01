@@ -419,6 +419,9 @@ while state != end:
         
         score1 = int(pygame.time.get_ticks()/100)
 
+        if score1 - score2 == 1500:
+            state = gameover
+
     if state == gameover:
         pygame.mixer.music.load(r'som\endmusic.mp3')
         pygame.mixer.music.set_volume(0.2)
