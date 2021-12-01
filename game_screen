@@ -1,1 +1,6 @@
 def game_screen(window):
+
+    # -- ajuste de velocidade
+    time = pygame.time.Clock()
+    
+    assets = load_assets()
