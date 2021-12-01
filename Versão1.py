@@ -378,12 +378,12 @@ while state == playing:
     if state == gameover:
         while state == gameover:
 
-            tela.fill((0,0,0))  # Preenche com a cor branca
+            tela.fill((0,0,0))  
             tela.blit(assets['tela_fin'], (10, 10))
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
-                    state = start
+                    state = playing
 
                 if event.type == pygame.QUIT:
                      state = over
