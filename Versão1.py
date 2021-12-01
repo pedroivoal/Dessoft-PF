@@ -57,8 +57,6 @@ playing = 2
 state = start
 
 # sair do jogo na hora
-over = 3
-
 end = 4
 
 # Carrega os sons do jogo
@@ -77,7 +75,7 @@ while state == start:
             state = playing
 
         if event.type == pygame.QUIT:
-            state = over          
+            state = end          
     pygame.display.update()
 
 if state == playing:
@@ -322,7 +320,7 @@ while state != end:
         for event in pygame.event.get():    # ----- Verifica consequências
 
             if event.type == pygame.QUIT:
-                state = over
+                state = end
 
             # Verifica se apertou alguma tecla.
             if event.type == pygame.KEYDOWN:
