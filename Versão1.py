@@ -320,7 +320,7 @@ while state != end:
     while state == playing:
         time.tick(FPS)
         
-        if (score1-score2)%500 == 0 and (score1-score2) != 0:
+        if (score1-score2)%1000 == 0 and (score1-score2) != 0:
             lives += 1
 
         # ----- Trata eventos
@@ -334,26 +334,26 @@ while state != end:
 
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx -= 6
+                    player.speedx -= 8
                 if event.key == pygame.K_RIGHT:
-                    player.speedx += 6
+                    player.speedx += 8
                 if event.key == pygame.K_DOWN:
-                    player.speedy += 6
+                    player.speedy += 8
                 if event.key == pygame.K_UP:
-                    player.speedy -= 6
+                    player.speedy -= 8
 
             # Verifica se soltou alguma tecla.
             if event.type == pygame.KEYUP:
 
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx += 6
+                    player.speedx += 8
                 if event.key == pygame.K_RIGHT:
-                    player.speedx -= 6
+                    player.speedx -= 8
                 if event.key == pygame.K_DOWN:
-                    player.speedy -= 6
+                    player.speedy -= 8
                 if event.key == pygame.K_UP:
-                    player.speedy += 6
+                    player.speedy += 8
 
         # Atualizando a posição dos avioes
         all_sprites.update()
@@ -361,11 +361,6 @@ while state != end:
 
         # Verifica se houve colisão entre nave e um aviao
         hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
-
-        # if len(hits) > 0 and player != nave(assets['image_nave2']):
-        #     player.kill()
-        #     player = nave(assets['image_nave2'])
-        #     all_sprites.add(player)
 
         # explosao dos avioes
         for aviao in hits:
@@ -419,7 +414,7 @@ while state != end:
         
         score1 = int(pygame.time.get_ticks()/100*6)
 
-        if score1 - score2 == 1500:
+        if score1 - score2 == 4000:
             state = gameover
 
     if state == gameover:
