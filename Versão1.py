@@ -144,7 +144,7 @@ class aviao(pygame.sprite.Sprite):
         if self.rect.right > largura:
             self.rect.x = random.randint(-1000, 0-largura_aviao)
             self.rect.y = random.randint(0, altura-altura_aviao)
-            self.speedx = random.randint(2+int(pygame.time.get_ticks()/10)//200, 4+int(pygame.time.get_ticks()/10)//200)
+            self.speedx = random.randint(2+int(pygame.time.get_ticks()/100)//200, 4+int(pygame.time.get_ticks()/100)//200)
             self.speedy = 0
     
 class Explosao(pygame.sprite.Sprite):
@@ -272,14 +272,14 @@ for i in range(5):
 front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
 # -- Parâmetro para inicio e final do jogo
-game = True  
+game = True
 lives = 3
 i = 0
 # -- Loop principal
 while state == playing:
     time.tick(FPS)
     
-    if score%5000 == 0 and score != 0:
+    if score%2500 == 0 and score != 0:
         lives += 1
 
     # ----- Trata eventos
@@ -369,7 +369,7 @@ while state == playing:
     # ----- Atualiza estado do jogo
     pygame.display.update()                           
     
-    score = int(pygame.time.get_ticks()/10)
+    score = int(pygame.time.get_ticks()/100)
 
     if state == gameover:
         while state == gameover:
