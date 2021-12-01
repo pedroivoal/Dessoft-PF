@@ -277,7 +277,8 @@ all_avioes = pygame.sprite.Group()
 # Criando o jogador
 player = nave(assets['image_nave'])
 all_sprites.add(player)
-score = 0
+score1 = 0
+score2 = 0
 
 # Criando os avioes
 for i in range(7):
@@ -304,7 +305,6 @@ while state != end:
     # Criando o jogador
     player = nave(assets['image_nave'])
     all_sprites.add(player)
-    score = 0
 
     # Criando os avioes
     for i in range(7):
@@ -320,7 +320,7 @@ while state != end:
     while state == playing:
         time.tick(FPS)
         
-        if score%2500 == 0 and score != 0:
+        if (score1-score2)%2500 == 0 and (score1-score2) != 0:
             lives += 1
 
         # ----- Trata eventos
@@ -402,7 +402,7 @@ while state != end:
         all_sprites.draw(tela)
 
         # Desenha score na tela
-        text_surface = front_score.render("{:08d}".format(score), True, (255, 100, 200))
+        text_surface = front_score.render("{:08d}".format(score1-score2), True, (255, 100, 200))
         text_rect = text_surface.get_rect()
         text_rect.midtop = (largura / 2,  10)
         tela.blit(text_surface, text_rect)
@@ -417,13 +417,15 @@ while state != end:
         # ----- Atualiza estado do jogo
         pygame.display.update()                           
         
-        score = int(pygame.time.get_ticks()/100)
+        score1 = int(pygame.time.get_ticks()/100)
 
     if state == gameover:
         pygame.mixer.music.load(r'som\endmusic.mp3')
         pygame.mixer.music.set_volume(0.2)
 
         pygame.mixer.music.play(loops=-1)
+
+        score2 = score1
          
         while state == gameover:
             time.tick(FPS)
