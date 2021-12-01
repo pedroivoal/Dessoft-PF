@@ -320,7 +320,7 @@ while state != end:
     while state == playing:
         time.tick(FPS)
         
-        if (score1-score2)%2500 == 0 and (score1-score2) != 0:
+        if (score1-score2)%500 == 0 and (score1-score2) != 0:
             lives += 1
 
         # ----- Trata eventos
