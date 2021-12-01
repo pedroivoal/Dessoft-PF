@@ -17,8 +17,8 @@ pygame.display.set_caption('MARS')
 largura_aviao = 120
 altura_aviao = 120
 largura_nave = 40
-altura_nave = 160
-altura_nave2 = 160/2
+altura_nave = 180
+altura_nave2 = 100
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
