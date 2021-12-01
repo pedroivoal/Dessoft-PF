@@ -29,8 +29,6 @@ def load_assets():
     assets['image_nave2'] = pygame.image.load(r'img\ITS2.png').convert_alpha()
     assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave2))
 
-    assets['explosao'] = pygame.mixer.Sound(r'som\explosao.mp3')
-
     anim_explosao_av = []
     anim_explosao_nav = []
 
@@ -49,4 +47,12 @@ def load_assets():
         img = pygame.transform.scale(img, (150, 150))
         anim_explosao_nav.append(img)
     assets["anim_explosao_nav"] = anim_explosao_nav
+ 
+    # carrega os sons do jogo 
+    pygame.mixer.music.load(r'som\music.mp3')
+    pygame.mixer.music.load(r'som\musicgame.mp3')
+    pygame.mixer.music.set_volume(0.2)
+    assets['explosao'] = pygame.mixer.Sound(r'som\explosao.mp3')
+    
+    return assets
 
