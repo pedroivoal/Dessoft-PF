@@ -9,8 +9,7 @@
 
 # Instalação
 
+# Link do vídeo do jogo no YouTube
 
-
-
-### Para ajudar no projeto
+# Referências
 Tabela RGB interativa: https://www.rapidtables.org/pt/web/color/RGB_Color.html
