@@ -49,8 +49,8 @@ assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave
 assets['image_nave2'] = pygame.image.load(r'img\ITS2.png').convert_alpha()
 assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave2))
 
-assets['explosão'] = pygame.image.load(r'som\explosão.mp3').convert_alpha()
-assets['explosão'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave2))
+#assets['explosao'] = pygame.image.load(r'som\explosao.mp3').convert_alpha()
+#assets['explosao'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave2))
 
 
 # fim de jogo
@@ -382,7 +382,8 @@ while state != end:
 
         # explosao dos avioes
         for aviao in hits:
-            assets['explosão'].play()
+            pygame.mixer.music.load(r'som\explosao.mp3')
+            pygame.mixer.music.play()
             explosao = Explosao(aviao.rect.center, assets)
             explosao2 = Explosao2(player.rect.center, assets)
             all_sprites.add(explosao)
