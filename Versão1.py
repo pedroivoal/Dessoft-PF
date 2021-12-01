@@ -166,7 +166,7 @@ class Aviao(pygame.sprite.Sprite):
         if self.rect.right > largura:
             self.rect.x = random.randint(-1000, 0-largura_aviao)
             self.rect.y = random.randint(0, altura-altura_aviao)
-            self.speedx = random.randint(2+int(pygame.time.get_ticks()/100)//200, 4+int(pygame.time.get_ticks()/100)//200)
+            self.speedx = random.randint(2+int(pygame.time.get_ticks()/100)//40, 4+int(pygame.time.get_ticks()/100)//40)
             self.speedy = 0
 
     
