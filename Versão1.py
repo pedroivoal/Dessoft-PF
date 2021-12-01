@@ -34,6 +34,10 @@ assets['tela_init']= pygame.transform.scale(assets['tela_init'],(largura,altura)
 assets['tela_fin'] = pygame.image.load(r'img\screen_gameover1.png').convert()
 assets['tela_fin']= pygame.transform.scale(assets['tela_fin'],(largura,altura))
 
+# tela de vitória
+assets['tela_fin2'] = pygame.image.load(r'img\screen_final1.png').convert()
+assets['tela_fin2']= pygame.transform.scale(assets['tela_fin2'],(largura,altura))
+
 # imagem do ufo
 assets['image_aviao'] = pygame.image.load(r'img\ufo2.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
@@ -59,6 +63,9 @@ state = start
 
 # sair do jogo na hora
 end = 4
+
+# vitória
+vitoria = 5
 
 # Carrega os sons do jogo
 if state == start:
@@ -422,7 +429,32 @@ while state != end:
         score1 = int(pygame.time.get_ticks()/100*6)
 
         if score1 - score2 == 4000:
-            state = gameover
+            state = vitoria
+
+    if state == vitoria:
+        pygame.mixer.music.load(r'som\endmusic.mp3')
+        pygame.mixer.music.set_volume(0.2)
+
+        pygame.mixer.music.play(loops=-1)
+
+        score2 = score1
+         
+        while state == vitoria:
+            time.tick(FPS)
+            
+            tela.fill((0,0,0))  
+            tela.blit(assets['tela_fin2'], (10, 10))
+
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    state = end
+                    
+                if event.type == pygame.QUIT:
+                    state = end
+
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    state = playing
+            pygame.display.update()
 
     if state == gameover:
         pygame.mixer.music.load(r'som\endmusic.mp3')
