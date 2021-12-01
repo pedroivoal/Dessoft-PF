@@ -127,7 +127,7 @@ class aviao(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = random.randint(-1000, 0-largura_aviao)
         self.rect.y = random.randint(0, altura-altura_aviao)
-        self.speedx = 5
+        self.speedx = random.randint(2, 4)
         self.speedy = 0
 
     def update(self):
@@ -141,7 +141,7 @@ class aviao(pygame.sprite.Sprite):
         if self.rect.right > largura:
             self.rect.x = random.randint(-1000, 0-largura_aviao)
             self.rect.y = random.randint(0, altura-altura_aviao)
-            self.speedx = random.randint(1, 4)
+            self.speedx = random.randint(2+int(pygame.time.get_ticks()/10)//200, 4+int(pygame.time.get_ticks()/10)//200)
             self.speedy = 0
     
 class Explosao(pygame.sprite.Sprite):
@@ -365,7 +365,7 @@ while state == playing:
     # ----- Atualiza estado do jogo
     pygame.display.update()                           
     
-    score = int(pygame.time.get_ticks()*111/1000)
+    score = int(pygame.time.get_ticks()/10)
 
     if state == gameover:
         while state == gameover:
