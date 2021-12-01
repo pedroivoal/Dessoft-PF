@@ -44,7 +44,7 @@ assets['image_nave2'] = pygame.image.load(r'img\ITS2.png').convert_alpha()
 assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave))
 
 # Carrega os sons do jogo
-pygame.mixer.music.load('music.mp3')
+pygame.mixer.music.load(r'som\music.mp3')
 pygame.mixer.music.set_volume(0.4)
 
 pygame.mixer.music.play(loops=-1)
