@@ -18,6 +18,7 @@ largura_aviao = 120
 altura_aviao = 120
 largura_nave = 40
 altura_nave = 160
+altura_nave2 = 160/2
 font = pygame.font.SysFont(None, 48)
 
 assets = {}
@@ -42,7 +43,7 @@ assets['image_nave'] = pygame.image.load(r'img\ITS1.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
 # imagem da nave 2 do jogador
 assets['image_nave2'] = pygame.image.load(r'img\ITS2.png').convert_alpha()
-assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave))
+assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave2))
 
 # fim de jogo
 gameover = 0
@@ -137,7 +138,8 @@ class nave(pygame.sprite.Sprite):
 
     def troca_skin(self,img):
         self.image = img
-        self.rect = self.image.get_rect()
+        centro = self.rect.center
+        self.rect = self.image.get_rect(center = centro)
         self.mask = pygame.mask.from_surface(self.image)
 
 class Aviao(pygame.sprite.Sprite):
