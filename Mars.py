@@ -239,7 +239,7 @@ end = 4
 vitoria = 5
 
 # instruções
-instrucao = 3
+instrucoes = 3
 
 # -- ajuste de velocidade
 time = pygame.time.Clock()
@@ -265,6 +265,12 @@ while state == start:
         if event.type == pygame.QUIT:
             state = end          
     pygame.display.update()
+    
+while state == instrucoes:
+    time.tick(FPS)
+    
+    tela.fill((0,0,0)) # Preenche com a cor branca
+    tela.blit(assets[
 
 if state == playing:
     pygame.mixer.music.load(r'som\musicgame.mp3')
