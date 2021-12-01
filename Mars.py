@@ -51,75 +51,6 @@ assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_na
 
 assets['explosao'] = pygame.mixer.Sound(r'som\explosao.mp3')
 
-
-# fim de jogo
-gameover = 0
-
-# tela inicial
-start = 1
-
-# durante o jogo
-playing = 2
-
-# estado atual
-state = start
-
-# sair do jogo na hora
-end = 4
-
-# vitória
-vitoria = 5
-
-# -- ajuste de velocidade
-time = pygame.time.Clock()
-FPS = 60
-
-# Carrega os sons do jogo
-if state == start:
-    pygame.mixer.music.load(r'som\music.mp3')
-    pygame.mixer.music.set_volume(0.2)
-
-    pygame.mixer.music.play(loops=-1)
-
-while state == start:
-    time.tick(FPS)
-
-    tela.fill((0,0,0))  # Preenche com a cor branca
-    tela.blit(assets['tela_init'], (10, 10))
-
-    for event in pygame.event.get():
-        if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
-            state = playing
-
-        if event.type == pygame.QUIT:
-            state = end          
-    pygame.display.update()
-
-if state == playing:
-    pygame.mixer.music.load(r'som\musicgame.mp3')
-    pygame.mixer.music.set_volume(0.1)
-
-    pygame.mixer.music.play(loops=-1)                                                        
-
-anim_explosao_av = []
-anim_explosao_nav = []
-
-for i in range(9):
-    # arquivos da animacao
-    animacao = 'regularExplosion0{}.png'.format(i)
-    img = pygame.image.load(animacao).convert()
-    img = pygame.transform.scale(img, (72, 72))
-    anim_explosao_av.append(img)
-assets["anim_explosao_av"] = anim_explosao_av
-
-for i in range(9):
-    # arquivos da animacao
-    animacao = 'regularExplosion0{}.png'.format(i)
-    img = pygame.image.load(animacao).convert()
-    img = pygame.transform.scale(img, (150, 150))
-    anim_explosao_nav.append(img)
-assets["anim_explosao_nav"] = anim_explosao_nav
-
 # -- estrutura dos dados
 
 class nave(pygame.sprite.Sprite):
@@ -287,7 +218,75 @@ class Explosao2(pygame.sprite.Sprite):
                 self.image = self.anim_explosao_nav[self.frame]
                 self.rect = self.image.get_rect()
                 self.rect.center = center
-                          
+
+
+# fim de jogo
+gameover = 0
+
+# tela inicial
+start = 1
+
+# durante o jogo
+playing = 2
+
+# estado atual
+state = start
+
+# sair do jogo na hora
+end = 4
+
+# vitória
+vitoria = 5
+
+# -- ajuste de velocidade
+time = pygame.time.Clock()
+FPS = 60
+
+# Carrega os sons do jogo
+if state == start:
+    pygame.mixer.music.load(r'som\music.mp3')
+    pygame.mixer.music.set_volume(0.2)
+
+    pygame.mixer.music.play(loops=-1)
+
+while state == start:
+    time.tick(FPS)
+
+    tela.fill((0,0,0))  # Preenche com a cor branca
+    tela.blit(assets['tela_init'], (10, 10))
+
+    for event in pygame.event.get():
+        if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
+            state = playing
+
+        if event.type == pygame.QUIT:
+            state = end          
+    pygame.display.update()
+
+if state == playing:
+    pygame.mixer.music.load(r'som\musicgame.mp3')
+    pygame.mixer.music.set_volume(0.1)
+
+    pygame.mixer.music.play(loops=-1)                                                        
+
+anim_explosao_av = []
+anim_explosao_nav = []
+
+for i in range(9):
+    # arquivos da animacao
+    animacao = 'regularExplosion0{}.png'.format(i)
+    img = pygame.image.load(animacao).convert()
+    img = pygame.transform.scale(img, (72, 72))
+    anim_explosao_av.append(img)
+assets["anim_explosao_av"] = anim_explosao_av
+
+for i in range(9):
+    # arquivos da animacao
+    animacao = 'regularExplosion0{}.png'.format(i)
+    img = pygame.image.load(animacao).convert()
+    img = pygame.transform.scale(img, (150, 150))
+    anim_explosao_nav.append(img)
+assets["anim_explosao_nav"] = anim_explosao_nav   
 
 # Criando um grupo de avioes
 all_sprites = pygame.sprite.Group()
