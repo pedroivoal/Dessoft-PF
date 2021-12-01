@@ -417,7 +417,7 @@ while state != end:
         # ----- Atualiza estado do jogo
         pygame.display.update()                           
         
-        score1 = int(pygame.time.get_ticks()/100)
+        score1 = int(pygame.time.get_ticks()/100*6)
 
         if score1 - score2 == 1500:
             state = gameover
