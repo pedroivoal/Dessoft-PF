@@ -238,6 +238,9 @@ end = 4
 # vitória
 vitoria = 5
 
+# instruções
+instrucao = 3
+
 # -- ajuste de velocidade
 time = pygame.time.Clock()
 FPS = 60
