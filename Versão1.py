@@ -334,26 +334,26 @@ while state != end:
 
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx -= 15
+                    player.speedx -= 6
                 if event.key == pygame.K_RIGHT:
-                    player.speedx += 15
+                    player.speedx += 6
                 if event.key == pygame.K_DOWN:
-                    player.speedy += 15
+                    player.speedy += 6
                 if event.key == pygame.K_UP:
-                    player.speedy -= 15
+                    player.speedy -= 6
 
             # Verifica se soltou alguma tecla.
             if event.type == pygame.KEYUP:
 
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx += 15
+                    player.speedx += 6
                 if event.key == pygame.K_RIGHT:
-                    player.speedx -= 15
+                    player.speedx -= 6
                 if event.key == pygame.K_DOWN:
-                    player.speedy -= 15
+                    player.speedy -= 6
                 if event.key == pygame.K_UP:
-                    player.speedy += 15
+                    player.speedy += 6
 
         # Atualizando a posição dos avioes
         all_sprites.update()
