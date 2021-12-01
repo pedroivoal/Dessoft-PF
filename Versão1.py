@@ -135,6 +135,11 @@ class nave(pygame.sprite.Sprite):
         if self.rect.bottom > altura:
             self.rect.bottom = altura
 
+    def troca_skin(self,img):
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
+
 class Aviao(pygame.sprite.Sprite):
     def __init__(self, img):
         # Construtor da classe mãe (Sprite).
@@ -376,7 +381,7 @@ while state != end:
 
         if len(hits):
             lives -= 1
-
+            player.troca_skin(assets['image_nave2'])
         if lives == 0:
             state = gameover
             pygame.time.delay(500) 
