@@ -405,8 +405,8 @@ while state == playing:
             tela.blit(assets['tela_fin'], (10, 10))
 
             for event in pygame.event.get():
-                if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
-                    state = start
+                if event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                    state = over
 
                 if event.type == pygame.QUIT:
                      state = over
