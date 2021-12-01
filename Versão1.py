@@ -35,9 +35,12 @@ assets['tela_fin']= pygame.transform.scale(assets['tela_fin'],(largura,altura))
 assets['image_aviao'] = pygame.image.load(r'img\ufo2.png').convert_alpha()
 assets['image_aviao'] = pygame.transform.scale(assets['image_aviao'],(largura_aviao,altura_aviao))
 
-# imagem da nave do jogador
+# imagem da nave 1 do jogador
 assets['image_nave'] = pygame.image.load(r'img\ITS1.png').convert_alpha()
 assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave,altura_nave))
+# imagem da nave 2 do jogador
+assets['image_nave2'] = pygame.image.load(r'img\ITS2.png').convert_alpha()
+assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave))
 
 # fim de jogo
 gameover = 0
@@ -324,6 +327,8 @@ while state == playing:
         explosao2 = Explosao2(player.rect.center, assets)
         all_sprites.add(explosao)
         all_sprites.add(explosao2)
+        # player = nave(assets['image_nave2'])
+        # all_sprites.add(player)
 
     print(hits)
     if len(hits):
@@ -345,8 +350,7 @@ while state == playing:
         i = 0
     i += 5
 
-
-    # Desenhando meteoros
+    # Desenhando na tela
     all_sprites.draw(tela)
 
     # Desenha score na tela
