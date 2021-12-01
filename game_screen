@@ -5,13 +5,7 @@ def game_screen(window):
     
     assets = load_assets()
     
-    
-    
-    
-    
-    
-    
-    
+   
     # fim de jogo
     gameover = 0
 
