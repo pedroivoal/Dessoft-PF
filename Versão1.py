@@ -329,6 +329,11 @@ while state == playing:
     # Verifica se houve colisão entre nave e um aviao
     hits = pygame.sprite.spritecollide(player, all_avioes, True, pygame.sprite.collide_mask)
 
+    # if len(hits) > 0 and player != nave(assets['image_nave2']):
+    #     player.kill()
+    #     player = nave(assets['image_nave2'])
+    #     all_sprites.add(player)
+
     # explosao dos avioes
     for aviao in hits:
         explosao = Explosao(aviao.rect.center, assets)
