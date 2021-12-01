@@ -2,6 +2,7 @@ import pygame
 import random
 
 pygame.init()
+pygame.mixer.init()
 
 # -- Tela inicial
 largura = 1200
@@ -41,6 +42,12 @@ assets['image_nave'] = pygame.transform.scale(assets['image_nave'],(largura_nave
 # imagem da nave 2 do jogador
 assets['image_nave2'] = pygame.image.load(r'img\ITS2.png').convert_alpha()
 assets['image_nave2'] = pygame.transform.scale(assets['image_nave2'],(largura_nave,altura_nave))
+
+# Carrega os sons do jogo
+pygame.mixer.music.load('music.mp3')
+pygame.mixer.music.set_volume(0.4)
+
+pygame.mixer.music.play(loops=-1)
 
 # fim de jogo
 gameover = 0
