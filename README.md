@@ -13,7 +13,7 @@ Insper - Engenharia 1A 2021.2
 Fizemos um jogo chamado Mars, o jogador terá o objetivo de fazer o foguete chegar em Marte, porém naves alienígenas não o deixarão chegar ao seu destino tão facilmente.
 Durante o jogo haverá mais instruções!
 
-Para abrir o jogo, execute o arquivo "Mars.py"
+Para abrir o jogo, execute o arquivo "Mars.py".
 
 # Instalação
 Pygame
