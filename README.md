@@ -5,11 +5,15 @@
 * Luiz Augusto Cordeiro de Melo 
 * Pedro Ivo Amaral Lima 
 
-# Apresentação
+# Apresentação do jogo
+Fizemos um jogo chamado Mars, o jogador terá o objetivo de fazer o foguete chegar em Marte, porém naves alienígenas não o deixarão chegar ao seu destino tão facilmente.
+Durante o jogo haverá mais instruções!
 
 # Instalação
+Pygame
 
 # Link do vídeo do jogo no YouTube
+https://www.youtube.com/watch?v=4qIjQGG5omU
 
 # Referências
 Tabela RGB interativa: https://www.rapidtables.org/pt/web/color/RGB_Color.html
