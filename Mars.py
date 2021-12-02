@@ -264,7 +264,7 @@ while state == start:
 
     for event in pygame.event.get():
         if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
-            state = playing
+            state = instrucoes
 
         if event.type == pygame.QUIT:
             state = end          
