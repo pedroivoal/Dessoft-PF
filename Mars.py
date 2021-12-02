@@ -117,7 +117,7 @@ class Aviao(pygame.sprite.Sprite):
         if self.rect.right > largura:
             self.rect.x = random.randint(-1000, 0-largura_aviao)
             self.rect.y = random.randint(0, altura-altura_aviao)
-            self.speedx = random.randint(2+int(pygame.time.get_ticks()/100)//40, 4+int(pygame.time.get_ticks()/100)//40)
+            self.speedx = random.randint(2+int(pygame.time.get_ticks()/100)//20, 4+int(pygame.time.get_ticks()/100)//20)
             self.speedy = 0
 
     
@@ -249,13 +249,18 @@ instrucoes = 3
 time = pygame.time.Clock()
 FPS = 60
 
-# Carrega os sons do jogo
+# Cria score
+score1 = 0
+score2 = 0
+
+# Carrega música da entrada
 if state == start:
     pygame.mixer.music.load(r'som\music.mp3')
     pygame.mixer.music.set_volume(0.3)
 
     pygame.mixer.music.play(loops=-1)
 
+# Mostra tela inicial do jogo
 while state == start:
     time.tick(FPS)
 
@@ -267,11 +272,16 @@ while state == start:
             state = instrucoes
 
         if event.type == pygame.QUIT:
-            state = end          
+            state = end 
+
     pygame.display.update()
-    
+
+# Mostra tela de instruções
 while state == instrucoes:
     time.tick(FPS)
+    # Corrige falha no score
+    score1 = int(pygame.time.get_ticks()/100*6)
+    score2 = score1
     
     tela.fill((0,0,0)) # Preenche com a cor branca
     tela.blit(assets['tela_instru'], (10,10))
@@ -281,19 +291,22 @@ while state == instrucoes:
             state = playing
 
         if event.type == pygame.QUIT:
-            state = end          
+            state = end    
+
     pygame.display.update()
                                              
-
+# começa a tocar a música game(que toca durante a interação principal)
 if state == playing:
     pygame.mixer.music.load(r'som\musicgame.mp3')
     pygame.mixer.music.set_volume(0.1)
 
     pygame.mixer.music.play(loops=-1)                                                        
 
+# Listas da animação
 anim_explosao_av = []
 anim_explosao_nav = []
 
+# Cria os arquivos de animação da explosão aviao
 for i in range(9):
     # arquivos da animacao
     animacao = 'regularExplosion0{}.png'.format(i)
@@ -302,6 +315,7 @@ for i in range(9):
     anim_explosao_av.append(img)
 assets["anim_explosao_av"] = anim_explosao_av
 
+# Cria os arquivos de animação da explosão nave
 for i in range(9):
     # arquivos da animacao
     animacao = 'regularExplosion0{}.png'.format(i)
@@ -317,8 +331,6 @@ all_avioes = pygame.sprite.Group()
 # Criando o jogador
 player = nave(assets['image_nave'])
 all_sprites.add(player)
-score1 = 0
-score2 = 0
 
 # Criando os avioes
 for i in range(7):
@@ -326,8 +338,10 @@ for i in range(7):
     all_sprites.add(aviao)
     all_avioes.add(aviao)
 
+# Fonte do que é exibido na tela
 front_score = pygame.font.Font('PressStart2P.ttf', 28)
 
+# Loop que permite recomeçar a jogar
 while state != end:
     
     # Carrega os sons do jogo
@@ -356,10 +370,12 @@ while state != end:
     game = True
     lives = 3
     i = 0
-    # -- Loop principal
+
+    # -- Loop principal(loop do jogo interativo)
     while state == playing:
         time.tick(FPS)
         
+        # Sistema de vidas bônus
         if (score1-score2)%2000 == 0 and (score1-score2) != 0:
             lives += 1
 
@@ -409,12 +425,14 @@ while state != end:
             explosao2 = Explosao2(player.rect.center, assets)
             all_sprites.add(explosao)
             all_sprites.add(explosao2)
-            
+        
+        # Recria avioes destruídos
         if len(all_avioes) < 8:
             aviao = Aviao(assets['image_aviao'])
             all_sprites.add(aviao)
             all_avioes.add(aviao)
 
+        # Confere se o jogador "morreu"
         if len(hits):
             lives -= 1
             player.troca_skin(assets['image_nave2'])
@@ -424,7 +442,7 @@ while state != end:
             
 
 
-        # ----- Tela se movendo
+        # ----- Move a tela de fundo
         tela.fill((0,0,0)) 
         tela.blit(assets['background'], (0, i))
         tela.blit(assets['background'], (0, -altura + i))
@@ -455,9 +473,11 @@ while state != end:
         
         score1 = int(pygame.time.get_ticks()/100*6)
 
+        # Confere vitória no jogo
         if score1 - score2 == 4000:
             state = vitoria
 
+    # Gera música da vitória
     if state == vitoria:
         pygame.mixer.music.load(r'som\endmusic.mp3')
         pygame.mixer.music.set_volume(0.2)
@@ -465,7 +485,8 @@ while state != end:
         pygame.mixer.music.play(loops=-1)
 
         score2 = score1
-         
+
+        # Gera tela da vitória
         while state == vitoria:
             time.tick(FPS)
             
@@ -482,7 +503,7 @@ while state != end:
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                     state = playing
             pygame.display.update()
-
+    # Gera música da derrota
     if state == gameover:
         pygame.mixer.music.load(r'som\endmusic.mp3')
         pygame.mixer.music.set_volume(0.2)
@@ -490,9 +511,13 @@ while state != end:
         pygame.mixer.music.play(loops=-1)
 
         score2 = score1
-         
+        
+        # Gera tela da derrota
         while state == gameover:
             time.tick(FPS)
+            # Corrige falha no score
+            score1 = int(pygame.time.get_ticks()/100*6)
+            score2 = score1
             
             tela.fill((0,0,0))  
             tela.blit(assets['tela_fin'], (10, 10))
