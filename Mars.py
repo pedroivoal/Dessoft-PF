@@ -274,7 +274,16 @@ while state == instrucoes:
     time.tick(FPS)
     
     tela.fill((0,0,0)) # Preenche com a cor branca
-    tela.blit(assets[
+    tela.blit(assets['tela_instru'], (10,10))
+     
+    for event in pygame.event.get():
+        if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
+            state = playing
+
+        if event.type == pygame.QUIT:
+            state = end          
+    pygame.display.update()
+                                             
 
 if state == playing:
     pygame.mixer.music.load(r'som\musicgame.mp3')
