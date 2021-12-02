@@ -1,13 +1,19 @@
 # Dessoft-PF
+Design de Software - Projeto Final 
 
 # Grupo
 * Lucas Teles Leiro
 * Luiz Augusto Cordeiro de Melo 
 * Pedro Ivo Amaral Lima 
 
+# Instituição
+Insper - Engenharia 1A 2021.2
+
 # Apresentação do jogo
 Fizemos um jogo chamado Mars, o jogador terá o objetivo de fazer o foguete chegar em Marte, porém naves alienígenas não o deixarão chegar ao seu destino tão facilmente.
 Durante o jogo haverá mais instruções!
+
+Para abrir o jogo, execute o arquivo "Mars.py"
 
 # Instalação
 Pygame
