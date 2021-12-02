@@ -252,7 +252,7 @@ FPS = 60
 # Carrega os sons do jogo
 if state == start:
     pygame.mixer.music.load(r'som\music.mp3')
-    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.set_volume(0.3)
 
     pygame.mixer.music.play(loops=-1)
 
@@ -424,7 +424,7 @@ while state != end:
             
 
 
-        #     ----- Gera saídas
+        # ----- Tela se movendo
         tela.fill((0,0,0)) 
         tela.blit(assets['background'], (0, i))
         tela.blit(assets['background'], (0, -altura + i))
