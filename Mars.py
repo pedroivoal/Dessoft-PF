@@ -30,6 +30,10 @@ assets['background']= pygame.transform.scale(assets['background'],(largura,altur
 assets['tela_init'] = pygame.image.load(r'img\screen_start1.png').convert()
 assets['tela_init']= pygame.transform.scale(assets['tela_init'],(largura,altura))
 
+# tela instruções
+assets['tela_instru'] = pygame.image.load(r'img\screen_instrucoes.png').convert()
+assets['tela_instru'] = pygame.transform.scale(assets['tela_instru'],(largura, altura)
+
 # tela do gameover
 assets['tela_fin'] = pygame.image.load(r'img\screen_gameover1.png').convert()
 assets['tela_fin']= pygame.transform.scale(assets['tela_fin'],(largura,altura))
