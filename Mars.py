@@ -474,12 +474,12 @@ while state != end:
         score1 = int(pygame.time.get_ticks()/100*6)
 
         # Confere vitória no jogo
-        if score1 - score2 == 4000:
+        if score1 - score2 == 400:
             state = vitoria
 
     # Gera música da vitória
     if state == vitoria:
-        pygame.mixer.music.load(r'som\endmusic.mp3')
+        pygame.mixer.music.load(r'som\win.wav')
         pygame.mixer.music.set_volume(0.2)
 
         pygame.mixer.music.play(loops=-1)
@@ -489,6 +489,8 @@ while state != end:
         # Gera tela da vitória
         while state == vitoria:
             time.tick(FPS)
+            score1 = int(pygame.time.get_ticks()/100*6)
+            score2 = score1
             
             tela.fill((0,0,0))  
             tela.blit(assets['tela_fin2'], (10, 10))
