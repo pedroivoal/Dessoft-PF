@@ -474,7 +474,7 @@ while state != end:
         score1 = int(pygame.time.get_ticks()/100*6)
 
         # Confere vitória no jogo
-        if score1 - score2 == 400:
+        if score1 - score2 == 4000:
             state = vitoria
 
     # Gera música da vitória
